@@ -53,7 +53,13 @@ const categories = [
   },
 ];
 
-const CollectionsDropdown = ({ isOpen }: { isOpen: boolean }) => {
+const CollectionsDropdown = ({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
   return (
     <div
       className={`
@@ -92,6 +98,7 @@ const CollectionsDropdown = ({ isOpen }: { isOpen: boolean }) => {
                     <Link
                       href={`/collections/${link.toLowerCase().replace(/\s+/g, '-')}`}
                       className="text-gray-600 hover:text-[#2D2422] transition-colors text-sm"
+                      onClick={onClose}
                     >
                       {link}
                     </Link>

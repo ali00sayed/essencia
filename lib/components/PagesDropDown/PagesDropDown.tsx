@@ -22,7 +22,13 @@ const categories = [
     link: '/shipping-policy',
   },
 ];
-const PagesDropDown = ({ isOpen }: { isOpen: boolean }) => {
+const PagesDropDown = ({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
   return (
     <div
       className={`
@@ -48,6 +54,7 @@ const PagesDropDown = ({ isOpen }: { isOpen: boolean }) => {
                 <Link
                   href={category.link}
                   className="text-gray-600 hover:text-[#2D2422] transition-colors text-sm text-center"
+                  onClick={onClose}
                 >
                   {category.title}
                 </Link>

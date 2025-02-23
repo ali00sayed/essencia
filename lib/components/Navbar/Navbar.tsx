@@ -14,6 +14,10 @@ const Navbar: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  const closeAllDropdowns = () => {
+    setIsCollectionsOpen(false);
+    setIsPageOpen(false);
+  };
   return (
     <div className="fixed top-4 left-0 right-0 z-50 px-4">
       <nav
@@ -33,7 +37,10 @@ const Navbar: React.FC = () => {
             <div className="relative">
               <button
                 className="flex items-center hover:text-gray-800"
-                onClick={() => setIsCollectionsOpen(!isCollectionsOpen)}
+                onClick={() => {
+                  setIsCollectionsOpen(!isCollectionsOpen);
+                  setIsPageOpen(false);
+                }}
               >
                 Collections
                 <svg
@@ -56,7 +63,10 @@ const Navbar: React.FC = () => {
             <div className="relative">
               <button
                 className="flex items-center hover:text-gray-800"
-                onClick={() => setIsPageOpen(!isPageOpen)}
+                onClick={() => {
+                  setIsPageOpen(!isPageOpen);
+                  setIsCollectionsOpen(false);
+                }}
               >
                 Pages
                 <svg
@@ -96,8 +106,11 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </nav>
-      <CollectionsDropdown isOpen={isCollectionsOpen} />
-      <PagesDropDown isOpen={isPageOpen} />
+      <CollectionsDropdown
+        isOpen={isCollectionsOpen}
+        onClose={closeAllDropdowns}
+      />
+      <PagesDropDown isOpen={isPageOpen} onClose={closeAllDropdowns} />
     </div>
   );
 };
