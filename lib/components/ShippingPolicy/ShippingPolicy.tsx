@@ -3,7 +3,7 @@ const ShippingPolicy = () => {
   return (
     <div className="min-h-screen bg-[#1C1917] text-white px-4 py-12 md:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto space-y-12">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal text-center mb-16">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal text-center mb-16 pt-12">
           Shipping policy
         </h1>
 

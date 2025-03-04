@@ -168,7 +168,7 @@ const ParallaxSection: React.FC<ParallaxSectionProps> = ({
     });
 
     if (!isMobile && background) {
-      tl.fromTo(background, { y: '-20%' }, { y: '20%', ease: 'none' });
+      tl.fromTo(background, { y: '-10%' }, { y: '10%', ease: 'none' });
     }
 
     return () => {
@@ -200,23 +200,23 @@ const ParallaxSection: React.FC<ParallaxSectionProps> = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="absolute inset-0 w-full h-full bg-black">
+      <div className="absolute inset-0 w-full h-full bg-black overflow-hidden">
         <div
           ref={backgroundRef}
-          className="absolute inset-0 w-full h-full transition-opacity duration-1000"
+          className="absolute inset-0 w-full h-[120%] -mt-[10%] transition-opacity duration-1000"
         >
           <Image
             src={backgroundImage}
             alt={imageAlt}
             fill
-            className="object-cover"
+            className="object-cover object-center scale-80"
             priority
             sizes="100vw"
             quality={90}
           />
           <div
-            className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/50"
-            style={{ backdropFilter: 'blur(8px)' }}
+            className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/60"
+            style={{ backdropFilter: 'blur(4px)' }}
           />
         </div>
       </div>
@@ -346,7 +346,7 @@ const ParallaxSection: React.FC<ParallaxSectionProps> = ({
           </button>
 
           <div
-            className="relative aspect-[3/4] sm:aspect-[4/3] md:aspect-[16/9] 
+            className="relative aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] 
             overflow-hidden rounded-lg shadow-2xl"
           >
             {cards.map((card, index) => (
@@ -366,7 +366,7 @@ const ParallaxSection: React.FC<ParallaxSectionProps> = ({
                     src={card.image}
                     alt={card.alt}
                     fill
-                    className="object-cover transition-transform duration-500 
+                    className="object-cover object-center transition-transform duration-500 
                       group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, 80vw"
                   />

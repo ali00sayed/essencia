@@ -37,7 +37,7 @@ const blogPosts: BlogPost[] = [
     image: '/images/blog/bannerImage.webp',
     author: {
       name: 'Sarah Johnson',
-      avatar: '/images/avatars/sarah.webp',
+      avatar: '/images/b1-1.webp',
     },
   },
   {
@@ -51,7 +51,7 @@ const blogPosts: BlogPost[] = [
     image: '/images/blog/bannerImage.webp',
     author: {
       name: 'Michael Chen',
-      avatar: '/images/avatars/michael.webp',
+      avatar: '/images/b1-2.webp',
     },
   },
   {
@@ -65,7 +65,7 @@ const blogPosts: BlogPost[] = [
     image: '/images/blog/bannerImage.webp',
     author: {
       name: 'Emma Davis',
-      avatar: '/images/avatars/emma.webp',
+      avatar: '/images/b1-3.webp',
     },
   },
   {
@@ -79,7 +79,7 @@ const blogPosts: BlogPost[] = [
     image: '/images/blog/bannerImage.webp',
     author: {
       name: 'James Wilson',
-      avatar: '/images/avatars/james.webp',
+      avatar: '/images/b1-3.webp',
     },
   },
   {
@@ -92,7 +92,7 @@ const blogPosts: BlogPost[] = [
     image: '/images/blog/bannerImage.webp',
     author: {
       name: 'Sarah Johnson',
-      avatar: '/images/avatars/sarah.webp',
+      avatar: '/images/b1-3.webp',
     },
   },
 ];

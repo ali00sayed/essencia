@@ -42,28 +42,30 @@ const Footer = () => {
     <footer className="bg-white text-black overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Newsletter Section */}
-        <div className="py-20 border-b border-gray-100">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="max-w-md">
-              <h2 className="text-4xl font-light mb-3">Join Our Newsletter</h2>
-              <p className="text-gray-500 text-sm leading-relaxed">
+        <div className="py-12 sm:py-16 md:py-20 border-b border-gray-100">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
+            <div className="max-w-md text-center md:text-left w-full md:w-auto">
+              <h2 className="text-3xl sm:text-4xl font-light mb-2 sm:mb-3">
+                Join Our Newsletter
+              </h2>
+              <p className="text-gray-500 text-sm leading-relaxed max-w-sm mx-auto md:mx-0">
                 Subscribe to receive updates, access to exclusive deals, and
                 more.
               </p>
             </div>
             <div className="w-full md:w-auto">
-              <form className="flex gap-2">
+              <form className="flex flex-col sm:flex-row gap-3 sm:gap-2 max-w-md mx-auto md:mx-0">
                 <input
                   type="email"
                   placeholder="Enter your email"
                   className="px-4 py-3 bg-gray-50 border border-gray-200 
-                    text-gray-900 placeholder:text-gray-400 flex-1 md:w-80 
+                    text-gray-900 placeholder:text-gray-400 w-full md:w-80 
                     focus:outline-none focus:border-gray-900 hover:border-gray-300 
-                    transition-colors duration-300"
+                    transition-colors duration-300 text-base"
                 />
                 <button
-                  className="px-8 py-3 bg-black text-white hover:bg-gray-900 
-                  transition-all duration-300 hover:px-10"
+                  className="px-6 sm:px-8 py-3 bg-black text-white hover:bg-gray-900 
+                    transition-all duration-300 hover:px-10 text-base whitespace-nowrap"
                 >
                   Subscribe
                 </button>

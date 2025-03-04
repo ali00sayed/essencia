@@ -3,9 +3,9 @@ import TermsOfService from '@/lib/components/Terms&Conditions/Terms&Conditions';
 
 const TermsConditionsPage = () => {
   return (
-    <div>
+    <main className="min-h-screen w-full">
       <TermsOfService />
-    </div>
+    </main>
   );
 };
 

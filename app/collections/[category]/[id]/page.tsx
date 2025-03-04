@@ -22,13 +22,13 @@ type Category = keyof typeof collectionsData;
 
 type Props = {
   params: {
-    category: Category;
+    category: string;
     id: string;
   };
 };
 
 export default function ProductPage({ params }: Props) {
-  const { category, id } = params;
+  const { category, id }: { category: string; id: string } = params;
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [activeTab, setActiveTab] = useState('description');
@@ -42,7 +42,7 @@ export default function ProductPage({ params }: Props) {
   const actionsRef = useRef<HTMLDivElement>(null);
 
   // Find the product data
-  const categoryData = collectionsData[category];
+  const categoryData = collectionsData[category as Category];
   const product = categoryData?.items.find(item => item.id === id);
 
   // Handle quantity changes

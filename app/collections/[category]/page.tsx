@@ -12,13 +12,13 @@ import { Filter, SlidersHorizontal, ChevronDown, Search } from 'lucide-react';
 type Category = keyof typeof collectionsData;
 
 type Props = {
-  params: { category: Category };
+  params: { category: string };
 };
 
 // Client component
 export default function CategoryPage({ params }: Props) {
   const { category } = params;
-  const collection = collectionsData[category];
+  const collection = collectionsData[category as Category];
   const [filterOpen, setFilterOpen] = useState(false);
   const [selectedSort, setSelectedSort] = useState('featured');
 
