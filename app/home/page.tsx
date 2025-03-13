@@ -31,7 +31,7 @@ const HomeScreen = () => {
   return (
     <main className="w-full bg-white">
       <div className="w-full">
-        <ScrollToTop />
+        {/* <ScrollToTop /> */}
         <Hero />
         <SubHero />
         <HeroCardSection />
