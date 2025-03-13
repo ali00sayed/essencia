@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Disallow admin and private routes
+Disallow: /admin/
+Disallow: /private/
+Disallow: /(auth)/
+
+# Sitemap location
+Sitemap: https://essancia.com/sitemap.xml 

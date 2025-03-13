@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Button from '../ui/Button';
+import { useRouter } from 'next/navigation';
 
 // Client-side only component wrapper
 const ClientOnly = ({ children }: { children: React.ReactNode }) => {
@@ -261,6 +262,8 @@ const WinterFashionSection = () => {
     );
   }
 
+  const router = useRouter();
+
   return (
     <section className="px-4 sm:px-6 lg:px-12 py-12 sm:py-16 mx-auto">
       {/* Enhanced Header */}
@@ -379,6 +382,10 @@ const WinterFashionSection = () => {
                     className="aspect-[3/4] relative overflow-hidden rounded-xl mb-4 
                     bg-gradient-to-b from-gray-50 to-gray-100 
                     group-hover:shadow-xl transition-all duration-500 ease-out"
+                    onClick={() => {
+                      console.log(item.id, 'redirect to collection page');
+                      router.push(`/collections/jackets/${item.id}`);
+                    }}
                   >
                     <div
                       className={`w-full h-full transform transition-all duration-700
@@ -457,6 +464,10 @@ const WinterFashionSection = () => {
                     className="aspect-[3/4] relative overflow-hidden rounded-xl mb-4 
                     bg-gradient-to-b from-gray-50 to-gray-100 
                     group-hover:shadow-xl transition-all duration-500 ease-out"
+                    onClick={() => {
+                      console.log(item.id, 'redirect to collection page');
+                      router.push(`/collections/jackets/${item.id}`);
+                    }}
                   >
                     <div
                       className={`w-full h-full transform transition-all duration-700

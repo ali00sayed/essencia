@@ -1,6 +1,5 @@
 import { collectionsData } from '@/lib/constants/Collections';
 
-// Generate static params for all products in all categories
 export function generateStaticParams() {
   const params: Array<{ category: string; id: string }> = [];
 

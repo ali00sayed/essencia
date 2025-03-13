@@ -46,13 +46,23 @@ const CollectionsDropdown: React.FC<CollectionsDropdownProps> = ({
     if (!dropdown || !content) return;
 
     if (isOpen) {
-      // Show animation
+      // Reset any previous styles
       gsap.set(dropdown, {
-        height: 'auto',
         display: 'block',
+        height: 'auto',
+        opacity: 1,
       });
-      const height = dropdown.offsetHeight;
 
+      // Ensure content is visible
+      gsap.set(content, {
+        opacity: 1,
+        x: 0,
+      });
+
+      // Get natural height
+      const naturalHeight = dropdown.scrollHeight;
+
+      // Animate from collapsed to full height
       gsap.fromTo(
         dropdown,
         {
@@ -60,14 +70,13 @@ const CollectionsDropdown: React.FC<CollectionsDropdownProps> = ({
           opacity: 0,
         },
         {
-          height: height,
+          height: naturalHeight,
           opacity: 1,
           duration: 0.4,
           ease: 'power3.out',
         }
       );
 
-      // Animate content from right
       gsap.fromTo(
         content,
         {
@@ -82,19 +91,14 @@ const CollectionsDropdown: React.FC<CollectionsDropdownProps> = ({
         }
       );
     } else {
-      // Hide animation
-      gsap.to(content, {
-        x: 30,
-        opacity: 0,
-        duration: 0.3,
-        ease: 'power3.inOut',
-      });
-
       gsap.to(dropdown, {
         height: 0,
         opacity: 0,
         duration: 0.3,
         ease: 'power3.inOut',
+        onComplete: () => {
+          gsap.set(dropdown, { display: 'none' });
+        },
       });
     }
   }, [isOpen]);
@@ -119,35 +123,27 @@ const CollectionsDropdown: React.FC<CollectionsDropdownProps> = ({
   return (
     <div
       ref={dropdownRef}
-      className="overflow-hidden bg-white"
-      style={{ height: 0 }}
+      className={`bg-white overflow-y-auto ${isOpen ? 'block' : 'hidden'} mb-4`}
     >
       <div
         ref={contentRef}
-        className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 lg:px-16 py-8"
+        className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 lg:px-16 py-6"
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {categories.map((category, index) => (
             <div key={index} className="text-black">
-              <h3 className="font-medium text-[14px] sm:text-[15px] mb-3 sm:mb-4 lg:mb-5">
+              <h3 className="font-medium text-[14px] sm:text-[15px] mb-3">
                 {category.title}
               </h3>
-              <ul className="space-y-2 sm:space-y-[10px]">
+              <ul className="space-y-2">
                 {category.links.map((link, linkIndex) => {
-                  const href =
-                    link.toLowerCase() === 'hoodies' ||
-                    link.toLowerCase() === 'tshirts' ||
-                    link.toLowerCase() === 'sweatshirts' ||
-                    link.toLowerCase() === 'cargos'
-                      ? `/collections/${link.toLowerCase()}`
-                      : `/collections`;
-
+                  const href = `/collections/${link.toLowerCase().replace(/\s+/g, '-')}`;
                   return (
-                    <li key={linkIndex}>
+                    <li key={linkIndex} className="block">
                       <Link
                         href={href}
                         className="text-gray-600 hover:text-black transition-all duration-300
-                          text-[14px] sm:text-[14px] leading-tight block py-0.5 relative group"
+                          text-[13px] sm:text-[14px] leading-relaxed block py-1 relative group"
                         onClick={e => handleLinkClick(e, href)}
                       >
                         <span className="relative z-10 inline-block">

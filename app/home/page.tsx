@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect } from 'react';
 import Hero from '../../lib/components/Hero/Hero';
 import SubHero from '../../lib/components/Sub-Hero/SubHero';

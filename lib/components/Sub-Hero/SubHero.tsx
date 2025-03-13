@@ -147,18 +147,6 @@ const SubHero = () => {
           </div>
         </div>
       </div>
-
-      {/* Corner decorations */}
-      {/* <div
-        className="absolute top-4 left-4 w-6 sm:w-8 h-6 sm:h-8 border-l border-t 
-        border-black/10 group-hover:w-8 sm:group-hover:w-12 group-hover:h-8 
-        sm:group-hover:h-12 transition-all duration-300"
-      />
-      <div
-        className="absolute bottom-4 right-4 w-6 sm:w-8 h-6 sm:h-8 border-r 
-        border-b border-black/10 group-hover:w-8 sm:group-hover:w-12 group-hover:h-8 
-        sm:group-hover:h-12 transition-all duration-300"
-      /> */}
     </div>
   );
 };

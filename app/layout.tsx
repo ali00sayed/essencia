@@ -16,8 +16,67 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Essancia Fashion',
-  description: 'Essancia Fashion',
+  title: {
+    default: 'Essancia Fashion',
+    template: '%s | Essancia Fashion',
+  },
+  description:
+    'Discover unique and trendy fashion at Essancia. Shop our curated collection of clothing and accessories for the modern fashion enthusiast.',
+  keywords: [
+    'fashion',
+    'clothing',
+    'accessories',
+    'trendy fashion',
+    'online shopping',
+    'Essancia',
+  ],
+  authors: [{ name: 'Essancia Fashion' }],
+  creator: 'Essancia Fashion',
+  publisher: 'Essancia Fashion',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://essancia.com'), // Replace with your actual domain
+  openGraph: {
+    title: 'Essancia Fashion',
+    description:
+      'Discover unique and trendy fashion at Essancia. Shop our curated collection of clothing and accessories.',
+    url: 'https://essancia.com', // Replace with your actual domain
+    siteName: 'Essancia Fashion',
+    images: [
+      {
+        url: '/images/og-image.jpg', // Add your OG image to public/images/
+        width: 1200,
+        height: 630,
+        alt: 'Essancia Fashion',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Essancia Fashion',
+    description:
+      'Discover unique and trendy fashion at Essancia. Shop our curated collection of clothing and accessories.',
+    images: ['/images/og-image.jpg'], // Same as OG image
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code', // Add your Google Search Console verification code
+  },
 };
 
 export default function RootLayout({
@@ -31,7 +90,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning={true}
       >
-        {/* <Navigation /> */}
         <Navbar />
         {children}
         <Footer />
