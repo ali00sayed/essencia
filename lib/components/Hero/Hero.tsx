@@ -16,7 +16,7 @@ const slideContents: SlideContent[] = [
     title: 'Essancia Fashion Picks',
     subtitle:
       'Discover our latest summer collection for your perfect seasonal.',
-    media: '/videos/summer-fashion.mp4',
+    media: '/videos/hero-2.mp4',
     type: 'video',
   },
   {

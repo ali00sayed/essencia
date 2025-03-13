@@ -34,7 +34,7 @@ const fashionItems: FashionItem[] = [
     image: '/images/esfClothes/esf-hoodie-5.jpeg',
     title: 'Street Luxe Hoodie',
     price: 1199.0,
-    colors: ['#000000', '#4A4A4A', '#eaecee'], // Black, Dark Gray, Charcoal
+    colors: ['#000000', '#fb5607', '#eaecee'], // Black, Dark Gray, Charcoal
   },
   {
     id: 2,

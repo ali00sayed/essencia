@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const LOCATIONS = [
   {
@@ -28,8 +28,12 @@ const LOCATIONS = [
 ];
 
 const Stores = () => {
-  const [activeImage, setActiveImage] = useState('/images/store_4.webp');
+  const [activeImage, setActiveImage] = useState(LOCATIONS[1].image);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    setActiveImage(LOCATIONS[1].image);
+  }, []);
 
   return (
     <div className="relative flex flex-col md:flex-row w-full min-h-screen bg-[#010203]">
@@ -42,7 +46,7 @@ const Stores = () => {
             alt={`${location.name} store`}
             fill
             sizes="50vw"
-            priority={location.id === 1}
+            priority={location.id === 2}
             className={`object-cover transition-all duration-700 transform
               ${activeImage === location.image ? 'opacity-100 scale-100' : 'opacity-0 scale-110'}`}
           />
