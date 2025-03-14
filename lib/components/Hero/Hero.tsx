@@ -16,15 +16,15 @@ const slideContents: SlideContent[] = [
     title: 'Essancia Fashion Picks',
     subtitle:
       'Discover our latest summer collection for your perfect seasonal.',
-    media: '/videos/hero-2.mp4',
+    media: '/videos/hero-1.mp4',
     type: 'video',
   },
   {
     title: 'Must-Have Winter Outfits',
     subtitle: 'Curated essentials to elevate your winter wardrobe beautifully.',
-    media: '/images/bannerImage.webp',
+    media: '/images/hero/hero-1.png',
     type: 'image',
-    duration: 4000, // 3 seconds for images
+    duration: 4000, // 4 seconds for images
   },
 ];
 
@@ -164,22 +164,24 @@ const Hero: React.FC = () => {
         <div className="flex-1 flex items-center pt-[20vh] sm:pt-[25vh]">
           <div className="w-full px-6 sm:px-8 md:px-12 lg:px-16">
             <div className=" sm:max-w-[85%] md:max-w-3xl lg:max-w-4xl">
-              <h1
-                className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl 
+              {/* If he want uncomment this and fix the size of the text */}
+
+              {/* <h1
+                className="text-4xl sm:text-7xl md:text-5xl lg:text-6xl 
                 text-white font-light leading-[1]
-                 sm:mb-10 md:mb-12 lg:mb-14
+                 sm:mb-6 md:mb-8 lg:mb-10
                 opacity-0 animate-fadeIn"
               >
                 {slideContents[currentSlide].title}
               </h1>
               <p
-                className="text-2xl sm:text-3xl md:text-4xl 
+                className="text-xl sm:text-2xl md:text-3xl 
                 text-white/80 max-w-3xl 
                 opacity-0 animate-fadeInDelay
                 leading-[1.2] font-light"
               >
                 {slideContents[currentSlide].subtitle}
-              </p>
+              </p> */}
             </div>
           </div>
         </div>

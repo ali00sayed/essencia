@@ -13,14 +13,14 @@ const categories = [
   {
     id: 'new-arrival',
     title: 'New Arrivals',
-    color: 'text-white/60 hover:text-white',
+    color: 'text-black/60 hover:text-black',
     images: [
       {
-        src: '/images/showcaseCategory/bg-model-1.png',
+        src: '/images/showcaseCategory/Leather-Jacket.jpeg',
         position: { top: '20%', left: '15%' },
       },
       {
-        src: '/images/showcaseCategory/bg-model-1.png',
+        src: '/images/showcaseCategory/Men-Suit-2.jpeg',
         position: { top: '20%', right: '15%' },
       },
     ],
@@ -28,14 +28,14 @@ const categories = [
   {
     id: 'most popular',
     title: 'Most Popular',
-    color: 'text-white/60 hover:text-white',
+    color: 'text-black/60 hover:text-black',
     images: [
       {
-        src: '/images/showcaseCategory/bg-model-4.png',
+        src: '/images/Essancia-Cloths/Brand-1.2.jpeg',
         position: { top: '20%', left: '15%' },
       },
       {
-        src: '/images/showcaseCategory/bg-model-3.png',
+        src: '/images/Essancia-Cloths/Brand-5.jpeg',
         position: { top: '20%', right: '15%' },
       },
     ],
@@ -43,14 +43,14 @@ const categories = [
   {
     id: 'bestseller',
     title: 'Best Seller',
-    color: 'text-white/60 hover:text-white',
+    color: 'text-black/60 hover:text-black',
     images: [
       {
-        src: '/images/showcaseCategory/bg-model-5.png',
+        src: '/images/Essancia-Cloths/Brand-9.jpeg',
         position: { top: '20%', left: '15%' },
       },
       {
-        src: '/images/showcaseCategory/bg-model-6.png',
+        src: '/images/Essancia-Cloths/Brand-11.jpeg',
         position: { top: '20%', right: '15%' },
       },
     ],
@@ -59,14 +59,14 @@ const categories = [
   {
     id: 'summer',
     title: 'Summer',
-    color: 'text-white/60 hover:text-white',
+    color: 'text-black/60 hover:text-black',
     images: [
       {
-        src: '/images/showcaseCategory/bg-model-4.1.png',
+        src: '/images/showcaseCategory/summer-2.jpeg',
         position: { top: '20%', left: '15%' },
       },
       {
-        src: '/images/showcaseCategory/bg-model-4.png',
+        src: '/images/showcaseCategory/summer-men-1.jpeg',
         position: { top: '20%', right: '15%' },
       },
     ],
@@ -74,14 +74,14 @@ const categories = [
   {
     id: 'winter',
     title: 'Winter',
-    color: 'text-white/60 hover:text-white',
+    color: 'text-black/60 hover:text-black',
     images: [
       {
-        src: '/images/showcaseCategory/bg-model-7.png',
+        src: '/images/showcaseCategory/winter-1.jpeg',
         position: { top: '20%', left: '15%' },
       },
       {
-        src: '/images/showcaseCategory/bg-model-8.png',
+        src: '/images/showcaseCategory/winter-2.jpeg',
         position: { top: '20%', right: '15%' },
       },
     ],
@@ -148,11 +148,11 @@ const CategoryShowcase = () => {
             0.05;
 
         gsap.to(element, {
-          opacity: isActive ? 1 : 0.15,
-          y: isActive ? 0 : 20,
-          scale: isActive ? 1.05 : 0.95,
-          filter: `blur(${isActive ? 0 : 2}px)`,
-          textShadow: isActive ? '0 0 30px rgba(255,255,255,0.4)' : 'none',
+          opacity: isActive ? 1 : 0.4,
+          y: isActive ? 0 : 10,
+          scale: isActive ? 1.05 : 0.98,
+          filter: `blur(${isActive ? 0 : 0.5}px)`,
+          textShadow: isActive ? '0 0 30px rgba(0, 0, 0, 0.7)' : 'none',
           letterSpacing: isActive ? '0.05em' : '0',
           duration: 0.4,
           delay,
@@ -212,7 +212,8 @@ const CategoryShowcase = () => {
       image.addEventListener('mouseenter', () => {
         gsap.to(image, {
           scale: 1.03,
-          boxShadow: '0 20px 50px rgba(0,0,0,0.4)',
+          boxShadow:
+            '0 0 30px rgba(0, 0, 0, 0.5), 0 0 60px rgba(0, 0, 0, 0.3), 0 0 2px #fff',
           duration: 0.4,
           ease: 'power2.out',
         });
@@ -228,7 +229,7 @@ const CategoryShowcase = () => {
       image.addEventListener('mouseleave', () => {
         gsap.to(image, {
           scale: 1,
-          boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3), 0 0 1px #fff',
           duration: 0.4,
           ease: 'power2.out',
         });
@@ -245,20 +246,21 @@ const CategoryShowcase = () => {
     // Enhanced background transition
     if (containerRef.current) {
       gsap.to(containerRef.current.querySelector('.overlay'), {
-        backgroundColor: 'rgba(0, 0, 0, 0.85)',
+        backgroundColor: 'rgba(0, 0, 0, 0.1)',
         duration: 0.8,
         ease: 'power2.inOut',
       });
 
       gsap.to(containerRef.current.querySelector('.bg-image'), {
         scale: 1.05,
-        filter: 'grayscale(100%) brightness(0.4)',
+        opacity: 0.6,
+        filter: 'brightness(1.1)',
         duration: 1.2,
         ease: 'power2.out',
       });
 
       gsap.to(containerRef.current.querySelector('.section-title'), {
-        opacity: 0.3,
+        opacity: 0.6,
         y: -10,
         duration: 0.5,
         ease: 'power2.out',
@@ -309,14 +311,15 @@ const CategoryShowcase = () => {
     // Enhanced background reset
     if (containerRef.current) {
       gsap.to(containerRef.current.querySelector('.overlay'), {
-        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+        backgroundColor: 'rgba(0, 0, 0, 0.05)',
         duration: 0.6,
         ease: 'power2.inOut',
       });
 
       gsap.to(containerRef.current.querySelector('.bg-image'), {
         scale: 1,
-        filter: 'grayscale(80%) brightness(0.5)',
+        opacity: 0.9,
+        filter: 'brightness(1.2)',
         duration: 0.8,
         ease: 'power2.inOut',
       });
@@ -340,26 +343,28 @@ const CategoryShowcase = () => {
         const imageGrid = targetCategory?.nextElementSibling;
 
         if (targetCategory && imageGrid) {
-          // Title animation
+          // Title animation with improved easing
           gsap.to(targetCategory, {
-            color: isClosing ? 'rgba(255, 255, 255, 0.6)' : '#ffffff',
-            duration: 0.3,
+            color: isClosing ? 'rgba(0, 0, 0, 0.6)' : '#000000',
+            duration: 0.4, // Slightly longer for smoother transition
             ease: 'power2.out',
           });
 
           // Arrow rotation and image grid animation
           if (isClosing) {
+            // Smoother arrow rotation
             gsap.to(targetCategory.querySelector('span:last-child'), {
               rotation: 0,
-              duration: 0.3,
-              ease: 'power2.inOut',
+              duration: 0.4,
+              ease: 'power2.inOut', // Smoother easing
             });
 
+            // Improved closing animation
             gsap.to(imageGrid, {
               height: 0,
               opacity: 0,
-              duration: 0.3,
-              ease: 'power2.inOut',
+              duration: 0.4, // Slightly longer for smoother transition
+              ease: 'power2.inOut', // Better easing for smoother animation
               onComplete: () => {
                 (imageGrid as HTMLElement).style.display = 'none';
               },
@@ -367,6 +372,7 @@ const CategoryShowcase = () => {
           } else {
             // Show grid first
             (imageGrid as HTMLElement).style.display = 'grid';
+            (imageGrid as HTMLElement).style.opacity = '0';
 
             // Get the auto height
             const autoHeight = (imageGrid as HTMLElement).scrollHeight;
@@ -377,19 +383,50 @@ const CategoryShowcase = () => {
               opacity: 0,
             });
 
-            // Animate to auto height
-            gsap.to(imageGrid, {
-              height: autoHeight,
-              opacity: 1,
-              duration: 0.3,
-              ease: 'power2.out',
+            // Create a timeline for smoother sequencing
+            const tl = gsap.timeline({
+              defaults: { ease: 'power3.out' },
             });
 
+            // Animate to auto height with improved sequence
+            tl.to(imageGrid, {
+              height: autoHeight,
+              duration: 0.4,
+            }).to(
+              imageGrid,
+              {
+                opacity: 1,
+                duration: 0.3,
+              },
+              '-=0.3' // Start opacity animation before height animation completes
+            );
+
+            // Smoother arrow rotation
             gsap.to(targetCategory.querySelector('span:last-child'), {
               rotation: 180,
-              duration: 0.3,
+              duration: 0.5,
               ease: 'power2.inOut',
             });
+
+            // Add subtle animation to the grid items
+            const gridItems = (imageGrid as HTMLElement).querySelectorAll(
+              '.relative'
+            );
+            gsap.fromTo(
+              gridItems,
+              {
+                y: 20,
+                opacity: 0,
+              },
+              {
+                y: 0,
+                opacity: 1,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: 'power2.out',
+                delay: 0.1,
+              }
+            );
           }
         }
 
@@ -407,45 +444,21 @@ const CategoryShowcase = () => {
       {/* Enhanced background with better styling */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/images/showcaseCategory/hovercardbg.webp"
+          src="/images/Hero/Hero-1.png"
           alt="background"
-          className="bg-image w-full h-full object-cover opacity-40 transform-gpu filter grayscale-[80%] brightness-50 transition-all duration-700"
+          className="bg-image w-full h-full object-cover opacit-90 transform-gpu filter brightness-[1.2] transition-all duration-700"
         />
-        <div className="overlay absolute inset-0 bg-black/75 transition-all duration-700" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/80" />
+        <div className="overlay absolute inset-0  transition-all duration-700" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-white/80" />
         <div className="absolute inset-0 backdrop-blur-[1px]" />
-
-        {/* Animated particles effect */}
-        <div className="absolute inset-0 opacity-30">
-          <div
-            className="absolute top-1/4 left-1/4 w-1 h-1 bg-white rounded-full animate-pulse"
-            style={{ animationDelay: '0.5s', animationDuration: '3s' }}
-          />
-          <div
-            className="absolute top-3/4 left-1/3 w-1 h-1 bg-white rounded-full animate-pulse"
-            style={{ animationDelay: '1.2s', animationDuration: '4s' }}
-          />
-          <div
-            className="absolute top-1/2 left-2/3 w-1 h-1 bg-white rounded-full animate-pulse"
-            style={{ animationDelay: '0.7s', animationDuration: '3.5s' }}
-          />
-          <div
-            className="absolute top-1/3 left-3/4 w-1 h-1 bg-white rounded-full animate-pulse"
-            style={{ animationDelay: '2s', animationDuration: '4.5s' }}
-          />
-          <div
-            className="absolute top-2/3 left-1/5 w-1 h-1 bg-white rounded-full animate-pulse"
-            style={{ animationDelay: '1.5s', animationDuration: '5s' }}
-          />
-        </div>
       </div>
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="section-title text-center text-white text-3xl sm:text-4xl md:text-5xl font-light mb-16 tracking-wider">
+        {/* <h1 className="section-title text-center text-white text-3xl sm:text-4xl md:text-5xl font-light mb-16 tracking-wider">
           <span className="inline-block border-b border-white/20 pb-2">
             Discover the Styles.
           </span>
-        </h1>
+        </h1> */}
 
         <div
           className="relative flex flex-col items-center justify-center 
@@ -456,11 +469,11 @@ const CategoryShowcase = () => {
             <div key={category.id} className="w-full md:w-auto">
               <h2
                 id={`category-${category.id}`}
-                className={`category-title text-3xl md:text-4xl lg:text-5xl font-extralight cursor-pointer transform-gpu
+                className={` category-title text-3xl md:text-4xl lg:text-5xl font-medium cursor-pointer transform-gpu
                   transition-all duration-300 ease-out select-none relative group
-                  ${isMobile ? 'flex items-center justify-between border-b border-white/10 pb-3' : ''}
-                  ${activeCategory === category.id ? 'text-white' : 'text-white/70'}
-                  ${!isMobile ? 'hover:text-white' : ''}`}
+                  ${isMobile ? 'flex items-center justify-between border-b border-black/10 pb-3' : ''}
+                  ${activeCategory === category.id ? 'text-black' : 'text-black/70'}
+                  ${!isMobile ? 'hover:text-black' : ''}`}
                 onClick={() => handleCategoryClick(category.id)}
                 onMouseEnter={() =>
                   !isMobile && handleCategoryHover(category.id)
@@ -474,7 +487,7 @@ const CategoryShowcase = () => {
                   {!isMobile && (
                     <span
                       className="absolute left-0 right-0 bottom-0 h-[1px] 
-                      bg-gradient-to-r from-transparent via-white to-transparent 
+                      bg-gradient-to-r from-transparent via-black to-transparent 
                       transform scale-x-0 group-hover:scale-x-100 
                       transition-transform duration-500 ease-out"
                     />
@@ -490,7 +503,7 @@ const CategoryShowcase = () => {
               {/* Mobile Image Grid */}
               {isMobile && (
                 <div
-                  className={`grid grid-cols-2 gap-4 sm:gap-5 mt-4 pb-6 sm:pb-8 overflow-hidden
+                  className={`grid grid-cols-2 gap-4 sm:gap-5 mt-4 pb-6 sm:pb-8 overflow-hidden will-change-transform
                     ${activeCategory === category.id ? 'block' : 'hidden'}`}
                 >
                   {category.images.map((image, index) => (
@@ -498,12 +511,12 @@ const CategoryShowcase = () => {
                       key={index}
                       className="relative aspect-[3/4] rounded-lg overflow-hidden 
                         transform transition-all duration-500 hover:scale-[1.03]
-                        shadow-lg hover:shadow-xl"
+                        shadow-lg hover:shadow-xl will-change-transform"
                     >
                       <img
                         src={image.src}
                         alt={`${category.title} ${index + 1}`}
-                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-110 will-change-transform"
                       />
                       <div
                         className="absolute inset-0 bg-gradient-to-t 
@@ -579,12 +592,18 @@ const CategoryShowcase = () => {
           </div>
         ))}
 
+      {/* Neon light effects */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+        <div className="absolute top-1/4 left-1/3 w-64 h-64 rounded-full bg-white/5 blur-[100px] animate-pulse-slow"></div>
+        <div className="absolute bottom-1/3 right-1/4 w-96 h-96 rounded-full bg-white/5 blur-[120px] animate-pulse-slow animation-delay-1000"></div>
+      </div>
+
       {/* Subtle floating elements for visual interest */}
       <div
-        className={`absolute top-1/4 left-1/4 w-32 h-32 border border-white/5 rounded-full transition-opacity duration-1000 ${isHovering ? 'opacity-0' : 'opacity-30'}`}
+        className={`absolute top-1/4 left-1/4 w-32 h-32 border border-black/5 rounded-full transition-opacity duration-1000 ${isHovering ? 'opacity-0' : 'opacity-30'}`}
       ></div>
       <div
-        className={`absolute bottom-1/3 right-1/4 w-48 h-48 border border-white/5 rounded-full transition-opacity duration-1000 ${isHovering ? 'opacity-0' : 'opacity-20'}`}
+        className={`absolute bottom-1/3 right-1/4 w-48 h-48 border border-black/5 rounded-full transition-opacity duration-1000 ${isHovering ? 'opacity-0' : 'opacity-20'}`}
       ></div>
     </div>
   );

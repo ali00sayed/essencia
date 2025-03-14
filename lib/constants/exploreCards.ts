@@ -17,7 +17,7 @@ export const categories: Category[] = [
     title: 'Hoodies',
     images: [
       {
-        src: '/images/explore/hoodie_explore_mustard.webp',
+        src: '/images/fashionShowcase/fsc-hoodie-1.jpeg',
         position: { top: '20%', left: '15%' },
       },
     ],
@@ -28,6 +28,8 @@ export const categories: Category[] = [
     images: [
       {
         src: '/images/explore/sweatshirt_explore_powder_blue.webp',
+        // src: '/images/explore/hoodie_explore_mustard.webp',
+
         position: { top: '20%', left: '15%' },
       },
     ],
@@ -37,7 +39,7 @@ export const categories: Category[] = [
     title: 'T-Shirts',
     images: [
       {
-        src: '/images/showcaseCategory/tshirt_explore_purple.webp',
+        src: '/images/fashionShowcase/fsc-shirt-1.jpeg',
         position: { top: '20%', left: '15%' },
       },
     ],

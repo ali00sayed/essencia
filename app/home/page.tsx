@@ -18,21 +18,17 @@ import Explore from '@/lib/components/Explore/exploreCards';
 import CargosSection from '../../lib/components/Cargos/CargosSection';
 
 const HomeScreen = () => {
-  function ScrollToTop() {
-    useEffect(() => {
-      window.scrollTo(0, 0);
-      if ('scrollRestoration' in window.history) {
-        window.history.scrollRestoration = 'manual';
-      }
-    }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
 
-    return null;
-  }
   return (
     <main className="w-full bg-white">
       <div className="w-full">
-        {/* <ScrollToTop /> */}
-        <Hero />
+        {/* <Hero />
         <SubHero />
         <HeroCardSection />
 
@@ -41,9 +37,9 @@ const HomeScreen = () => {
         <Explore categories={categories} />
         <CategoryShowcase />
         <WinterFashionSection />
-        <CargosSection />
+        <CargosSection /> */}
 
-        <ParallaxSection
+        {/* <ParallaxSection
           backgroundImage="/images/summerCollection/summer-collection-1.jpeg"
           cards={[
             {
@@ -200,7 +196,7 @@ const HomeScreen = () => {
           heading="Spring Fashion"
           subheading="Experience the freshness of spring with our latest collection of lightweight and stylish pieces."
           backgroundColor="#000000"
-        />
+        /> */}
 
         <ProductDetails />
         <FitnessFashion />

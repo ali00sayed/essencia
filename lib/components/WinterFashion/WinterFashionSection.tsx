@@ -35,6 +35,8 @@ const fashionItems: FashionItem[] = [
     image: '/images/esfClothes/esf-hoodie-5.jpeg',
     title: 'Street Luxe Hoodie',
     price: 1199.0,
+    originalPrice: 1350.0,
+    discount: '28% OFF',
     colors: ['#000000', '#fb5607', '#eaecee'], // Black, Dark Gray, Charcoal
   },
   {
@@ -56,7 +58,7 @@ const fashionItems: FashionItem[] = [
     image: '/images/esfClothes/esf-tshirt-3.jpeg',
     title: 'The Hype Tee',
     price: 480.0,
-    originalPrice: 5500.0,
+    originalPrice: 550.0,
     discount: '15% OFF',
     colors: ['#000000', '#36454F', '#1B1B1B'], // Black, Charcoal, Deep Black
   },
@@ -86,7 +88,7 @@ const fashionItems: FashionItem[] = [
     image: '/images/esfClothes/esf-zipper-hoodie-3.jpg',
     title: 'Redline Zipper Hoodie',
     price: 1248.0,
-    originalPrice: 168.0,
+    originalPrice: 1689.0,
     discount: '11% OFF',
     colors: ['#000000', '#FFC300', '#F5F5F5'], // Black, Dark Gray, Rich Black    colors: ['#000000', '#1B1B1B', '#36454F'], // Black, Charcoal, Deep Black
   },
@@ -126,6 +128,7 @@ const ColorDots = ({
 );
 
 const WinterFashionSection = () => {
+  const router = useRouter();
   const [currentPage, setCurrentPage] = useState(0);
   const [isHovered, setIsHovered] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -261,8 +264,6 @@ const WinterFashionSection = () => {
       </section>
     );
   }
-
-  const router = useRouter();
 
   return (
     <section className="px-4 sm:px-6 lg:px-12 py-12 sm:py-16 mx-auto">

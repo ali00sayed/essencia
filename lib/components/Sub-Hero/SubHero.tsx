@@ -107,7 +107,7 @@ const SubHero = () => {
           className="text-white text-xs sm:text-sm tracking-widest uppercase mb-4 
           sm:mb-6 animate-fadeIn"
         >
-          Summer Style Guide
+          Essancia Style Guide
         </span>
 
         <div className="relative space-y-6 sm:space-y-8">
