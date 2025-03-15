@@ -6,7 +6,7 @@ const DreamerProduct = () => {
   const dreamerProduct = [
     {
       id: 1,
-      img: '/images/collections/hoodies/hoodie_navy.webp',
+      img: '/images/collections/hoodies/leather-Hoodie.jpeg',
       title: 'Hoodies',
       description:
         'These are comfortable clothes that are suitable for everyday.',
@@ -15,7 +15,7 @@ const DreamerProduct = () => {
     },
     {
       id: 2,
-      img: '/images/collections/sweatshirts/Sweat_shirt_powder_blue.webp',
+      img: '/images/heroCardSection/hero-card-section3.jpg',
       title: 'Sweat-Shirts',
       description:
         'These are comfortable clothes that are suitable for everyday.',
@@ -24,7 +24,7 @@ const DreamerProduct = () => {
     },
     {
       id: 3,
-      img: '/images/collections/tshirts/tshirt_graphic.webp',
+      img: '/images/esfClothes/esf-tshirt-3.jpeg',
       title: 'T-Shirts',
       description:
         'These are comfortable clothes that are suitable for everyday.',
@@ -33,22 +33,22 @@ const DreamerProduct = () => {
     },
     {
       id: 4,
-      img: '/aboutUs/womenImg.webp',
+      img: '/images/aboutUs/womenImg.webp',
       title: 'T-Shirts for women',
       description:
         'These are comfortable clothes that are suitable for everyday.',
       color: 'from-green-500 to-teal-500',
-      link: '/collections/tshirts',
+      link: '/collections',
     },
   ];
 
   return (
     <div className="bg-gradient-to-b from-white to-gray-100 py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extralight text-center mb-4">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 text-center mb-4">
           Our Products
         </h2>
-        <p className="text-gray-600 text-center max-w-2xl mx-auto mb-12 sm:mb-16 md:mb-20">
+        <p className="text-gray-700 text-center max-w-2xl mx-auto mb-12 sm:mb-16 md:mb-20">
           Discover our premium collection of comfortable and stylish clothing
           designed for everyday wear
         </p>
@@ -72,14 +72,14 @@ const DreamerProduct = () => {
 
                   {/* Content container */}
                   <div className="p-6 flex-grow bg-white">
-                    <h3 className="text-xl sm:text-2xl font-bold mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-black group-hover:to-gray-600 transition-all duration-300">
+                    <h3 className="text-xl sm:text-2xl font-bold mb-2 text-gray-900 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-gray-900 group-hover:to-gray-700 transition-all duration-300">
                       {product.title}
                     </h3>
-                    <p className="text-gray-600 text-sm sm:text-base mb-4">
+                    <p className="text-gray-700 text-sm sm:text-base mb-4">
                       {product.description}
                     </p>
                     <div className="flex justify-end">
-                      <span className="inline-flex items-center text-sm font-medium text-gray-900 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-black group-hover:to-gray-600">
+                      <span className="inline-flex items-center text-sm font-medium text-gray-900 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-gray-900 group-hover:to-gray-700">
                         Explore
                         <svg
                           className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1"

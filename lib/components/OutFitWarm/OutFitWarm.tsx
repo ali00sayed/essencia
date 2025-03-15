@@ -4,44 +4,56 @@ import Button from '../ui/Button';
 
 const OutFitWarm = () => {
   return (
-    <section className="bg-white min-h-screen flex items-center px-4 sm:px-6 md:px-8 lg:px-16 py-12 md:py-16 lg:py-20">
-      <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
-        <div className="relative order-2 lg:order-1 mx-auto lg:mx-0 w-full max-w-md lg:max-w-none">
+    <section className="bg-white min-h-[80vh] md:min-h-screen flex items-center px-4 sm:px-6 md:px-8 lg:px-16 py-8 sm:py-12 md:py-16 lg:py-20">
+      <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 w-full">
+        <div className="relative order-2 lg:order-1 w-full max-w-xl mx-auto lg:mx-0">
           <div className="relative w-full aspect-[3/4] max-w-[450px] mx-auto lg:mx-0">
             <Image
-              src="/aboutUs/aboutUs-innerImg2.webp"
+              src="/images/Essancia-Cloths/Brand-27.jpeg"
               alt="Woman in blue sportswear"
               fill
-              className="object-cover rounded-lg shadow-lg"
+              className="object-cover rounded-2xl shadow-xl"
+              sizes="(max-width: 768px) 90vw, (max-width: 1024px) 50vw, 40vw"
               priority
             />
           </div>
           <div className="absolute bottom-[-5%] sm:bottom-[-10%] right-[-5%] sm:right-[-10%] w-[60%] sm:w-[70%] md:w-[80%] aspect-[3/4] max-w-[400px] hidden sm:block">
             <Image
-              src="/aboutUs/aboutUs-innerImg2.webp"
+              src="/images/Essancia-Cloths/Brand-31.jpeg"
               alt="Woman in black sportswear"
               fill
-              className="object-cover rounded-lg shadow-lg"
+              className="object-cover rounded-2xl shadow-xl"
+              sizes="(max-width: 768px) 60vw, (max-width: 1024px) 35vw, 30vw"
             />
           </div>
         </div>
 
-        <div className="flex flex-col justify-center order-1 lg:order-2">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light px-2 sm:px-4 text-black mb-4 sm:mb-6">
-            Outfit yourself in warmth and style
+        <div className="flex flex-col justify-center order-1 lg:order-2 max-w-xl lg:max-w-none mx-auto w-full">
+          <h2 className="text-2xl sm:text-3xl  md:text-4xl lg:text-5xl text-gray-900 mb-3 sm:mb-6 md:mb-8 leading-tight">
+            Outfit yourself in style
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-gray-800 mb-6 sm:mb-8 leading-relaxed px-2 sm:px-4">
+          <p className="text-base sm:text-lg text-gray-700 mb-6 sm:mb-8 md:mb-10 leading-relaxed">
             Our collection features premium quality fabrics that provide both
             comfort and durability. Each piece is carefully crafted to ensure
             you stay warm without compromising on style. From casual everyday
             wear to statement pieces for special occasions, we have something
             for everyone.
           </p>
-          <div className="flex flex-wrap gap-4 px-2 sm:px-4 sm:items-center">
-            <Button href="/collections/all" variant="primary" size="lg">
+          <div className="flex flex-col sm:flex-row gap-4 sm:items-center">
+            <Button
+              href="/collections"
+              variant="primary"
+              size="lg"
+              className="w-full sm:w-auto text-center justify-center"
+            >
               Shop Collection
             </Button>
-            <Button href="/customize" variant="secondary" size="lg">
+            <Button
+              href="/customize"
+              variant="secondary"
+              size="lg"
+              className="w-full sm:w-auto text-center justify-center"
+            >
               Customize Now
             </Button>
           </div>

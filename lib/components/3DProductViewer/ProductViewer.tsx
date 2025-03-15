@@ -15,9 +15,6 @@ interface ProductViewerProps {
 const ProductViewer: React.FC<ProductViewerProps> = ({
   productType,
   color,
-  logo,
-  customText,
-  textColor,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
@@ -26,6 +23,7 @@ const ProductViewer: React.FC<ProductViewerProps> = ({
   const modelRef = useRef<THREE.Group | null>(null);
   const controlsRef = useRef<OrbitControls | null>(null);
 
+  // Combined setup and model loading
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -35,12 +33,12 @@ const ProductViewer: React.FC<ProductViewerProps> = ({
 
     // Camera setup
     const camera = new THREE.PerspectiveCamera(
-      50,
+      45,
       containerRef.current.clientWidth / containerRef.current.clientHeight,
       0.1,
       1000
     );
-    camera.position.set(0, 0, 3);
+    camera.position.set(0, 0.5, 3);
     cameraRef.current = camera;
 
     // Renderer setup
@@ -58,59 +56,28 @@ const ProductViewer: React.FC<ProductViewerProps> = ({
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
     controls.maxPolarAngle = Math.PI / 1.5;
-    controls.minPolarAngle = Math.PI / 3;
+    controls.minPolarAngle = Math.PI / 2.5;
     controls.enableZoom = true;
     controls.maxDistance = 5;
-    controls.minDistance = 1.5;
+    controls.minDistance = 2.5;
+    controls.target.set(0, 1.8, 0);
     controlsRef.current = controls;
 
     // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
     scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(1, 1, 2);
-    scene.add(directionalLight);
+    const frontLight = new THREE.DirectionalLight(0xffffff, 1);
+    frontLight.position.set(0, 1, 3);
+    scene.add(frontLight);
 
-    // Load initial model
-    const loader = new GLTFLoader();
-    loader.load(`/models/${productType}Model.glb`, gltf => {
-      const model = gltf.scene;
-      model.scale.setScalar(0.06);
-      model.position.set(0, -0.3, 0);
-      model.rotation.set(0, Math.PI, 0);
+    const backLight = new THREE.DirectionalLight(0xffffff, 0.7);
+    backLight.position.set(0, 1, -3);
+    scene.add(backLight);
 
-      // Apply material
-      model.traverse(child => {
-        if (child instanceof THREE.Mesh) {
-          console.log(`Mesh name: ${child.name}`);
-          const material = new THREE.MeshStandardMaterial({
-            color: new THREE.Color(color),
-            metalness: 0.2,
-            roughness: 0.6,
-            side: THREE.DoubleSide,
-          });
-          child.material = material;
-          material.needsUpdate = true;
-        }
-      });
-
-      modelRef.current = model;
-      scene.add(model);
-
-      // Center camera on model
-      const box = new THREE.Box3().setFromObject(model);
-      const center = box.getCenter(new THREE.Vector3());
-      const size = box.getSize(new THREE.Vector3());
-
-      const fov = camera.fov * (Math.PI / 180);
-      const cameraDistance =
-        Math.max(size.x / camera.aspect, size.y) / (2 * Math.tan(fov / 2));
-      camera.position.set(0, center.y - 0.15, cameraDistance * 1.2);
-      camera.lookAt(center);
-      controls.target.set(0, center.y - 0.15, 0);
-      controls.update();
-    });
+    const topLight = new THREE.DirectionalLight(0xffffff, 0.5);
+    topLight.position.set(0, 3, 0);
+    scene.add(topLight);
 
     // Animation loop
     const animate = () => {
@@ -140,49 +107,66 @@ const ProductViewer: React.FC<ProductViewerProps> = ({
         containerRef.current.removeChild(renderer.domElement);
       }
     };
-  }, []); // Empty dependency array for initial setup
+  }, []); // Initial setup only runs once
 
-  // Update model color
+  // Combined model loading and color updating
   useEffect(() => {
-    if (modelRef.current) {
-      modelRef.current.traverse(child => {
-        if (child instanceof THREE.Mesh) {
-          (child.material as THREE.MeshStandardMaterial).color.set(color);
-          (child.material as THREE.MeshStandardMaterial).needsUpdate = true;
-        }
-      });
-    }
-  }, [color]);
-
-  // Update model type
-  useEffect(() => {
-    if (!sceneRef.current || !modelRef.current) return;
+    if (!sceneRef.current) return;
 
     const loader = new GLTFLoader();
     loader.load(`/models/${productType}Model.glb`, gltf => {
-      sceneRef.current.remove(modelRef.current!);
+      // Remove existing model if it exists
+      if (modelRef.current) {
+        sceneRef.current.remove(modelRef.current);
+      }
+
       const newModel = gltf.scene;
-      newModel.scale.setScalar(0.06);
-      newModel.position.set(0, -0.3, 0);
+      newModel.scale.setScalar(0.045);
+      newModel.position.set(0, 0.5, 0);
       newModel.rotation.set(0, Math.PI, 0);
 
+      // Apply material with current color
       newModel.traverse(child => {
         if (child instanceof THREE.Mesh) {
+          console.log(`Applying color to mesh: ${child.name}`);
           const material = new THREE.MeshStandardMaterial({
             color: new THREE.Color(color),
-            metalness: 0.2,
-            roughness: 0.6,
+            metalness: 0.1,
+            roughness: 0.85,
             side: THREE.DoubleSide,
+            emissive: new THREE.Color(color),
+            emissiveIntensity: 0.02,
           });
           child.material = material;
+          child.castShadow = true;
+          child.receiveShadow = true;
           material.needsUpdate = true;
         }
       });
 
       modelRef.current = newModel;
       sceneRef.current.add(newModel);
+
+      // Center camera on model with adjusted position
+      if (cameraRef.current) {
+        const box = new THREE.Box3().setFromObject(newModel);
+        const size = box.getSize(new THREE.Vector3());
+
+        const fov = cameraRef.current.fov * (Math.PI / 180);
+        const cameraDistance =
+          Math.max(size.x / cameraRef.current.aspect, size.y) /
+          (2 * Math.tan(fov / 2));
+
+        cameraRef.current.position.set(0, 0.5, cameraDistance * 1.3);
+        cameraRef.current.lookAt(new THREE.Vector3(0, 0.5, 0));
+
+        if (controlsRef.current) {
+          controlsRef.current.target.set(0, 0.5, 0);
+          controlsRef.current.update();
+        }
+      }
     });
-  }, [productType]);
+  }, [productType, color]); // Only re-run when product type or color changes
 
   return (
     <div

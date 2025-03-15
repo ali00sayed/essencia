@@ -8,7 +8,6 @@ import WinterFashionSection from '../../lib/components/WinterFashion/WinterFashi
 
 import CategoryShowcase from '@/lib/components/Category-Showcase/Category';
 import ProductDetails from '@/lib/components/ProductDetails/ProductDetails';
-import FitnessFashion from '@/lib/components/FitnessFashion/FitnessFashion';
 import Stores from '@/lib/components/Stores/Stores';
 import DesignerSection from '@/lib/components/Designer/Designer';
 import { categories } from '@/lib/constants/exploreCards';
@@ -16,6 +15,7 @@ import ParallaxSection from '@/lib/components/ParallaxSection/ParallaxSection';
 import FashionShowcase from '@/lib/components/FashionShowcase/FashionShowcase';
 import Explore from '@/lib/components/Explore/exploreCards';
 import CargosSection from '../../lib/components/Cargos/CargosSection';
+import VideoFashion from '@/lib/components/VideoFashion/VideoFashion';
 
 const HomeScreen = () => {
   useEffect(() => {
@@ -37,9 +37,9 @@ const HomeScreen = () => {
         <Explore categories={categories} />
         <CategoryShowcase />
         <WinterFashionSection />
-        <CargosSection /> */}
+        <CargosSection />
 
-        {/* <ParallaxSection
+        <ParallaxSection
           backgroundImage="/images/summerCollection/summer-collection-1.jpeg"
           cards={[
             {
@@ -198,11 +198,11 @@ const HomeScreen = () => {
           backgroundColor="#000000"
         /> */}
 
-        <ProductDetails />
-        <FitnessFashion />
-        <FashionShowcase />
-        <DesignerSection />
-        <Stores />
+        {/* <ProductDetails /> */}
+        {/* <VideoFashion /> */}
+        {/* <FashionShowcase /> */}
+        {/* <DesignerSection /> */}
+        {/* <Stores /> */}
       </div>
     </main>
   );

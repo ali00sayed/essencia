@@ -21,9 +21,9 @@ const CustomizePage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const products = [
-    { id: 'tshirt', name: 'T-Shirt', price: 229.99 },
-    { id: 'hoodie', name: 'Hoodie', price: 449.99 },
-    { id: 'sweatshirt', name: 'Sweatshirt', price: 399.99 },
+    { id: 'tshirt', name: 'T-Shirt', price: 449 },
+    { id: 'hoodie', name: 'Hoodie', price: 669 },
+    { id: 'sweatshirt', name: 'Sweatshirt', price: 559 },
   ];
 
   const colors = [
@@ -196,6 +196,7 @@ const CustomizePage = () => {
                 {products.map(product => (
                   <button
                     key={product.id}
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     onClick={() => setSelectedProduct(product.id as any)}
                     className={`text-black p-3 md:p-2 rounded-xl border-2  transition-all ${
                       selectedProduct === product.id

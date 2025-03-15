@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { ChevronDown } from 'lucide-react';
 
 interface FAQItem {
@@ -49,35 +50,38 @@ const FAQ = () => {
 
   return (
     <>
-      <div className="relative w-full h-[400px]">
-        <img
-          src="/images/faq.webp" // Make sure this image exists in your public folder
+      <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden">
+        <Image
+          src="/images/logo/Essancia-Fashion.jpeg"
           alt="FAQ Banner"
           className="object-cover w-full h-full"
+          fill
+          priority
+          sizes="100vw"
+          quality={90}
         />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <h1 className="text-6xl text-white font-light">FAQs</h1>
-        </div>
       </div>
-      <section className="py-16 px-4 bg-white">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-light text-center mb-12">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 text-center mb-8 sm:mb-12 lg:mb-16">
             Frequently Asked Questions
-          </h1>
+          </h2>
 
-          <div className="space-y-4">
+          <div className="space-y-4 sm:space-y-6">
             {faqData.map((faq, index) => (
               <div
                 key={index}
-                className="border border-gray-200 rounded-lg overflow-hidden"
+                className="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-300"
               >
                 <button
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-black/5 transition-colors duration-300"
+                  className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-300"
                   onClick={() => toggleFAQ(index)}
                 >
-                  <span className="text-lg font-light">{faq.question}</span>
+                  <span className="text-base sm:text-lg text-gray-900 font-medium pr-4">
+                    {faq.question}
+                  </span>
                   <ChevronDown
-                    className={`w-5 h-5 text-gray-800 transition-transform duration-300 ${
+                    className={`w-5 h-5 text-gray-700 flex-shrink-0 transition-transform duration-300 ${
                       openIndex === index ? 'rotate-180' : ''
                     }`}
                   />
@@ -85,10 +89,10 @@ const FAQ = () => {
 
                 <div
                   className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                    openIndex === index ? 'max-h-96' : 'max-h-0'
+                    openIndex === index ? 'max-h-[500px]' : 'max-h-0'
                   }`}
                 >
-                  <p className="px-6 py-4 text-gray-600 bg-gray-50">
+                  <p className="px-6 py-5 text-gray-700 bg-gray-50 leading-relaxed text-base">
                     {faq.answer}
                   </p>
                 </div>
@@ -96,12 +100,12 @@ const FAQ = () => {
             ))}
           </div>
 
-          <div className="mt-12 text-center">
-            <p className="text-gray-600">
+          <div className="mt-12 sm:mt-16 text-center">
+            <p className="text-gray-700 text-base sm:text-lg">
               Still have questions?{' '}
               <a
                 href="/contact"
-                className="text-gray-500 underline hover:text-gray-900 transition-colors"
+                className="text-gray-900 font-medium hover:text-gray-700 underline underline-offset-4 transition-colors"
               >
                 Contact our support team
               </a>
