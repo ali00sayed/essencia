@@ -1,104 +1,29 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Image from 'next/image';
+import {
+  IoLocationOutline,
+  IoMailOutline,
+  IoCallOutline,
+} from 'react-icons/io5';
+import { FaInstagram, FaLinkedinIn, FaFacebook } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
+
 import Loading from '@/lib/components/Loading/Loading';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface FormData {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
-
-const CONTACT_METHODS = [
-  {
-    icon: '📍',
-    title: 'Visit Us',
-    details: '123 Fashion Street, Design District',
-    color: 'blue',
-  },
-  {
-    icon: '📞',
-    title: 'Call Us',
-    details: '+1 234 567 890',
-    color: 'purple',
-  },
-  {
-    icon: '✉️',
-    title: 'Email Us',
-    details: 'contact@essancia.com',
-    color: 'pink',
-  },
-  {
-    icon: '⏰',
-    title: 'Opening Hours',
-    details: 'Mon - Sat: 10AM - 8PM',
-    color: 'green',
-  },
-];
-
 const ContactPage = () => {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [hoveredMethod, setHoveredMethod] = useState<number | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
-  const [errors, setErrors] = useState<Partial<FormData>>({});
+  const headerRef = useRef<HTMLDivElement>(null);
+  const heroContentRef = useRef<HTMLDivElement>(null);
+  const formContainerRef = useRef<HTMLDivElement>(null);
+  const infoContainerRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
 
-  // Cursor effect
-  useEffect(() => {
-    const cursor = cursorRef.current;
-    const cursorDot = document.createElement('div');
-    cursorDot.className = 'cursor-dot';
-    document.body.appendChild(cursorDot);
-
-    const moveCursor = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-
-      gsap.to(cursor, {
-        x: clientX,
-        y: clientY,
-        duration: 0.5,
-        ease: 'power3.out',
-      });
-
-      gsap.to(cursorDot, {
-        x: clientX,
-        y: clientY,
-        duration: 0.1,
-      });
-
-      const isOverInteractive = (e.target as HTMLElement).closest(
-        'button, input, textarea, a'
-      );
-      gsap.to(cursor, {
-        scale: isOverInteractive ? 1.5 : 1,
-        duration: 0.3,
-      });
-    };
-
-    window.addEventListener('mousemove', moveCursor);
-    return () => {
-      window.removeEventListener('mousemove', moveCursor);
-      cursorDot.remove();
-    };
-  }, []);
-
-  // Initial animations
   useEffect(() => {
     setIsMounted(true);
 
@@ -106,318 +31,308 @@ const ContactPage = () => {
     const initializeAnimations = () => {
       const tl = gsap.timeline();
 
-      tl.from('.contact-title', {
-        y: 100,
+      // Hero section animations - matching blog page style
+      tl.from(headerRef.current, {
+        y: -100,
         opacity: 0,
-        duration: 1,
+        duration: 1.2,
         ease: 'power3.out',
-      })
-        .from(
-          '.form-element',
-          {
-            y: 50,
-            opacity: 0,
-            stagger: 0.2,
-            duration: 0.8,
-            ease: 'power3.out',
-          },
-          '-=0.5'
-        )
-        .from(
-          '.contact-info',
-          {
-            x: 100,
-            opacity: 0,
-            duration: 0.8,
-            ease: 'power3.out',
-          },
-          '-=0.8'
-        );
-
-      // Scroll animations
-      gsap.utils.toArray('section').forEach((section: any) => {
-        gsap.from(section, {
+      }).from(
+        heroContentRef.current,
+        {
+          y: 30,
           opacity: 0,
-          y: 50,
           duration: 1,
           ease: 'power3.out',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 80%',
-            end: 'top 20%',
-            toggleActions: 'play none none reverse',
-          },
-        });
+        },
+        '-=0.8'
+      );
+
+      // Form and info section animations
+      gsap.from(formContainerRef.current, {
+        y: 60,
+        opacity: 0,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: formContainerRef.current,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+
+      gsap.from(infoContainerRef.current, {
+        y: 60,
+        opacity: 0,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: infoContainerRef.current,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
       });
 
       setIsLoading(false);
     };
 
-    // Small delay to ensure smooth transition
     const timer = setTimeout(initializeAnimations, 100);
-
     return () => clearTimeout(timer);
   }, []);
-
-  const validateForm = (): boolean => {
-    const newErrors: Partial<FormData> = {};
-
-    if (!formData.name) newErrors.name = 'Name is required';
-    if (!formData.email) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-    if (!formData.message) newErrors.message = 'Message is required';
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-
-    setIsSubmitting(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setShowSuccess(true);
-
-    setTimeout(() => {
-      setShowSuccess(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 3000);
-  };
 
   if (!isMounted) return <Loading />;
 
   return (
-    <div
-      ref={containerRef}
-      className="min-h-screen bg-gradient-to-b from-white to-gray-50"
-    >
+    <div className="min-h-screen bg-white">
       {isLoading && <Loading />}
-      {/* Hero Section */}
-      <section className="h-[90vh] relative overflow-hidden">
-        <Image
-          src="/images/contact-hero.webp"
-          alt="Contact hero"
-          fill
-          className="object-cover scale-105"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
 
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center space-y-8 max-w-4xl px-4">
-            <h1 className="text-6xl md:text-7xl xl:text-8xl font-light contact-title text-white">
-              Let&apos;s Create Something
-              <span
-                className="block mt-4 bg-gradient-to-r from-white via-white/90 to-white/80 
-                bg-clip-text text-transparent"
-              >
-                Beautiful Together
-              </span>
-            </h1>
-            <p className="text-xl md:text-2xl text-white/80 max-w-2xl mx-auto leading-relaxed">
-              Have a question or want to collaborate? We&apos;d love to hear
-              from you.
-            </p>
+      {/* Hero Section */}
+      <section
+        ref={headerRef}
+        className="relative overflow-hidden h-screen w-full"
+      >
+        <div className="absolute inset-0 w-full h-full">
+          {/* Desktop Image */}
+          <div className="hidden sm:block w-full h-full">
+            <Image
+              src="/images/contact/Contact-1.jpeg"
+              className="object-cover object-[center_35%] w-full h-full"
+              alt="Contact hero"
+              fill
+              sizes="100vw"
+              priority
+              quality={100}
+            />
+          </div>
+
+          {/* Mobile Image */}
+          <div className="block sm:hidden w-full h-full">
+            <Image
+              src="/images/contact/contact-2.jpeg"
+              className="object-cover object-center w-full h-full"
+              alt="Contact hero mobile"
+              fill
+              sizes="100vw"
+              priority
+              quality={100}
+            />
           </div>
         </div>
 
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce">
-          <span className="text-white text-4xl opacity-80">↓</span>
+        {/* Dark Overlay with gradient for better text visibility */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/70 to-black/90" />
+
+        {/* Content Section */}
+        <div className="absolute inset-0 flex items-end justify-center px-4 pb-12 sm:pb-16 md:pb-20">
+          <div
+            ref={heroContentRef}
+            className="text-center space-y-4 max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto"
+          >
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-white mx-auto leading-tigh">
+              Let&apos;s Create Something Beautiful
+            </h1>
+            <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-lg sm:max-w-xl md:max-w-2xl mx-auto">
+              Have a question or want to collaborate? We&apos;d love to hear
+              from you.
+            </p>
+
+            {/* Animated Down Arrow */}
+            <div className="flex justify-center pt-8">
+              <div className="animate-bounce">
+                <svg
+                  width="40"
+                  height="40"
+                  viewBox="0 0 50 50"
+                  fill="none"
+                  className="filter drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]
+                    sm:w-[45px] sm:h-[45px] md:w-[50px] md:h-[50px]"
+                >
+                  <circle
+                    cx="25"
+                    cy="25"
+                    r="23"
+                    stroke="white"
+                    strokeWidth="2"
+                    className="opacity-30"
+                  />
+                  <path
+                    d="M25 15 L25 35 M25 35 L33 27 M25 35 L17 27"
+                    stroke="white"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="drop-shadow-[0_0_5px_rgba(255,255,255,1)]"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Contact Form Section */}
-      <section className="py-24 md:py-32 px-4 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-50/30 to-transparent" />
-        <div className="max-w-7xl mx-auto relative">
-          <div className="flex flex-col lg:flex-row gap-16 xl:gap-24">
+      {/* Contact Section */}
+      <section className="py-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Form Side */}
-            <div className="w-full lg:w-1/2 space-y-12">
-              <div className="max-w-md">
-                <h2 className="text-3xl md:text-4xl font-light mb-4">
-                  Get in Touch
-                </h2>
-                <p className="text-gray-600 leading-relaxed">
+            <div ref={formContainerRef} className="space-y-8">
+              <div>
+                <h2 className="text-3xl font-light mb-4">Get in Touch</h2>
+                <p className="text-gray-600">
                   Fill out the form below and we&apos;ll get back to you as soon
                   as possible.
                 </p>
               </div>
 
-              <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
-                <div className="form-element group">
-                  <label className="block text-sm font-medium mb-2 text-gray-700">
-                    Your Name
-                  </label>
+              <form className="space-y-6">
+                <div>
                   <input
                     type="text"
-                    value={formData.name}
-                    onChange={e =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                    className="w-full px-6 py-4 bg-white border rounded-xl
-                      border-gray-200 focus:outline-none focus:ring-2 
-                      focus:ring-blue-500 transition-all duration-300 
-                      group-hover:shadow-[0_0_20px_rgba(59,130,246,0.15)]"
-                    placeholder="John Doe"
+                    name="name"
+                    required
+                    className="w-full px-6 py-4 bg-gray-50  rounded-xl
+                      border-gray-200 focus:outline-none focus:ring-1
+                      focus:ring-[#ff8c00] hover:shadow-[0_0_15px_rgba(255,140,0,0.2)]
+                      hover:border-[#ff8c00] transition-all duration-300
+                      transform hover:scale-[1.02]"
+                    placeholder="Your Name"
                   />
-                  {errors.name && (
-                    <span className="text-red-500 text-sm mt-2 block">
-                      {errors.name}
-                    </span>
-                  )}
                 </div>
 
-                <div className="form-element group">
-                  <label className="block text-sm font-medium mb-2">
-                    Email Address
-                  </label>
+                <div>
                   <input
                     type="email"
-                    value={formData.email}
-                    onChange={e =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                    className="w-full px-6 py-4 bg-transparent border rounded-lg
-                      border-gray-200 focus:outline-none focus:ring-2 
-                      focus:ring-blue-500 transition-all duration-300
-                      group-hover:shadow-[0_0_20px_rgba(59,130,246,0.5)]"
-                    placeholder="john@example.com"
+                    name="email"
+                    required
+                    className="w-full px-6 py-4 bg-gray-50  rounded-xl
+                      border-gray-200 focus:outline-none focus:ring-1
+                      focus:ring-[#ff8c00] hover:shadow-[0_0_15px_rgba(255,140,0,0.2)]
+                      hover:border-[#ff8c00] transition-all duration-300
+                      transform hover:scale-[1.02]"
+                    placeholder="Your Email"
                   />
-                  {errors.email && (
-                    <span className="text-red-500 text-sm mt-1">
-                      {errors.email}
-                    </span>
-                  )}
                 </div>
 
-                <div className="form-element group">
-                  <label className="block text-sm font-medium mb-2">
-                    Message
-                  </label>
+                <div>
                   <textarea
-                    value={formData.message}
-                    onChange={e =>
-                      setFormData({ ...formData, message: e.target.value })
-                    }
+                    name="message"
+                    required
                     rows={6}
-                    className="w-full px-6 py-4 bg-transparent border rounded-lg
-                      border-gray-200 focus:outline-none focus:ring-2 
-                      focus:ring-blue-500 transition-all duration-300
-                      group-hover:shadow-[0_0_20px_rgba(59,130,246,0.5)]"
-                    placeholder="Your message..."
+                    className="w-full px-6 py-4 bg-gray-50 rounded-xl
+                      border-gray-200 focus:outline-none focus:ring-1
+                      focus:ring-[#ff8c00] hover:shadow-[0_0_15px_rgba(255,140,0,0.2)]
+                      hover:border-[#ff8c00] transition-all duration-300
+                      transform hover:scale-[1.02] resize-none"
+                    placeholder="Your Message"
                   />
-                  {errors.message && (
-                    <span className="text-red-500 text-sm mt-1">
-                      {errors.message}
-                    </span>
-                  )}
                 </div>
 
                 <button
+                  disabled
                   type="submit"
-                  disabled={isSubmitting}
-                  className="form-element w-full py-4 rounded-lg relative overflow-hidden
-                    bg-blue-500 text-white font-medium group"
+                  className="w-full py-4 bg-gradient-to-r from-[#ff8c00] to-[#ff4500] text-white rounded-xl
+                    transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,140,0,0.5)]
+                    transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed
+                    disabled:hover:scale-100 disabled:hover:shadow-none"
                 >
-                  <span
-                    className="absolute inset-0 w-0 bg-blue-600 transition-all duration-500 ease-out 
-                    group-hover:w-full"
-                  />
-                  <span className="relative">
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
-                  </span>
+                  Send Message
                 </button>
               </form>
             </div>
 
             {/* Info Side */}
-            <div className="w-full lg:w-1/2 contact-info space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {CONTACT_METHODS.map((method, index) => (
-                  <div
-                    key={method.title}
-                    className="p-6 rounded-xl backdrop-blur-lg bg-white 
-                      shadow-[0_0_50px_rgba(0,0,0,0.1)] transform transition-all duration-300
-                      hover:-translate-y-1 hover:shadow-2xl cursor-pointer"
-                    onMouseEnter={() => setHoveredMethod(index)}
-                    onMouseLeave={() => setHoveredMethod(null)}
-                  >
+            <div ref={infoContainerRef} className="space-y-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="p-6 bg-gray-50 rounded-xl transform hover:scale-105 transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,140,0,0.3)]">
+                  <div className="flex items-start gap-4">
                     <div
-                      className={`flex items-start gap-4 ${
-                        hoveredMethod === index ? 'scale-105' : ''
-                      } transition-transform duration-300`}
+                      className="p-3 bg-gradient-to-r from-[#ff8c00] to-[#ff4500] rounded-lg text-white
+                      shadow-[0_0_10px_rgba(255,140,0,0.5)]"
                     >
-                      <span
-                        className={`p-3 rounded-full bg-${method.color}-500/10 
-                        text-${method.color}-500 text-xl`}
-                      >
-                        {method.icon}
-                      </span>
-                      <div>
-                        <h3 className="font-medium mb-1">{method.title}</h3>
-                        <p className="text-gray-600">{method.details}</p>
-                      </div>
+                      <IoLocationOutline className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#ff8c00] to-[#ff4500]">
+                        Visit Us
+                      </h3>
+                      <p className="text-gray-600">Worli Lotus</p>
+                      <p className="text-gray-600">Mumbai, 400018</p>
                     </div>
                   </div>
-                ))}
+                </div>
+
+                <div className="p-6 bg-gray-50 rounded-xl transform hover:scale-105 transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,140,0,0.3)]">
+                  <div className="flex items-start gap-4">
+                    <div
+                      className="p-3 bg-gradient-to-r from-[#ff8c00] to-[#ff4500] rounded-lg text-white
+                      shadow-[0_0_10px_rgba(255,140,0,0.5)]"
+                    >
+                      <IoMailOutline className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#ff8c00] to-[#ff4500]">
+                        Email Us
+                      </h3>
+                      <p className="text-gray-600">sales@essancia.com</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-6 bg-gray-50 rounded-xl transform hover:scale-105 transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,140,0,0.3)]">
+                  <div className="flex items-start gap-4">
+                    <div
+                      className="p-3 bg-gradient-to-r from-[#ff8c00] to-[#ff4500] rounded-lg text-white
+                      shadow-[0_0_10px_rgba(255,140,0,0.5)]"
+                    >
+                      <IoCallOutline className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#ff8c00] to-[#ff4500]">
+                        Call Us
+                      </h3>
+                      <p className="text-gray-600">+91 77 108 707 60</p>
+                      <p className="text-gray-600">Mon-Fri : 9AM - 6PM</p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* Enhanced Map Section */}
-              <div className="relative h-[400px] rounded-2xl overflow-hidden group">
-                <Image
-                  src="/images/map.webp"
-                  alt="Location map"
-                  fill
-                  className="object-cover transition-transform duration-700
-                    group-hover:scale-110"
-                />
-                <div
-                  className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent
-                  opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                >
-                  <div className="absolute bottom-6 left-6 text-white">
-                    <h3 className="text-xl font-medium mb-2">
-                      Visit Our Store
-                    </h3>
-                    <p className="text-white/80">Get directions →</p>
-                  </div>
+              <div>
+                <h3 className="text-xl font-light mb-6">Follow Us</h3>
+                <div className="flex gap-4">
+                  <a
+                    href="#"
+                    className="p-4 bg-gray-50 rounded-xl text-gray-600 
+                    hover:bg-gradient-to-br hover:from-purple-600 hover:via-pink-600 hover:to-orange-500
+                    hover:text-white transition-all duration-300"
+                  >
+                    <FaInstagram className="w-6 h-6" />
+                  </a>
+                  <a
+                    href="#"
+                    className="p-4 bg-gray-50 rounded-xl text-gray-600 
+                    hover:bg-[#1877F2] hover:text-white transition-all duration-300"
+                  >
+                    <FaFacebook className="w-6 h-6" />
+                  </a>
+                  <a
+                    href="#"
+                    className="p-4 bg-gray-50 rounded-xl text-gray-600 
+                    hover:bg-[#0A66C2] hover:text-white transition-all duration-300"
+                  >
+                    <FaLinkedinIn className="w-6 h-6" />
+                  </a>
+                  <a
+                    href="#"
+                    className="p-4 bg-gray-50 rounded-xl text-gray-600 
+                    hover:hover:bg-black hover:text-white transition-all duration-300"
+                  >
+                    <FaXTwitter className="w-6 h-6" />
+                  </a>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Success Message */}
-      {showSuccess && (
-        <div
-          className="fixed bottom-8 right-8 bg-green-500 text-white px-6 py-4 
-          rounded-lg shadow-lg animate-fadeIn flex items-center gap-3"
-        >
-          <div className="w-6 h-6 rounded-full border-2 border-white/30 flex items-center justify-center">
-            <span className="text-xl">✓</span>
-          </div>
-          <div>
-            <p className="font-medium">Message sent successfully!</p>
-            <p className="text-sm text-white/80">
-              We&apos;ll get back to you soon.
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* Custom Cursor */}
-      <div
-        ref={cursorRef}
-        className="fixed w-8 h-8 rounded-full pointer-events-none z-50 mix-blend-difference
-          bg-white/20 backdrop-blur-sm border border-white/40"
-      />
     </div>
   );
 };

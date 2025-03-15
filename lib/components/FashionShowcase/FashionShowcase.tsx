@@ -4,10 +4,17 @@ import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+// Declare custom window property type
+declare global {
+  interface Window {
+    __FASHION_SHOWCASE_RENDERED: boolean;
+  }
+}
+
 // Global rendering control
 if (typeof window !== 'undefined') {
-  (window as any).__FASHION_SHOWCASE_RENDERED =
-    (window as any).__FASHION_SHOWCASE_RENDERED || false;
+  window.__FASHION_SHOWCASE_RENDERED =
+    window.__FASHION_SHOWCASE_RENDERED || false;
 }
 
 gsap.registerPlugin(ScrollTrigger);
@@ -163,13 +170,12 @@ const FashionShowcase = React.memo(() => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       // Use a safer way to check/set the global flag
-      const w = window as any;
-      if (w.__FASHION_SHOWCASE_RENDERED) {
+      if (window.__FASHION_SHOWCASE_RENDERED) {
         // If already rendered elsewhere, don't render here
         setCanRender(false);
       } else {
         // Mark as rendered and allow this instance to render
-        w.__FASHION_SHOWCASE_RENDERED = true;
+        window.__FASHION_SHOWCASE_RENDERED = true;
         setCanRender(true);
 
         // Add section ID for debugging
@@ -266,12 +272,12 @@ const FashionShowcase = React.memo(() => {
               priority
               sizes="(max-width: 768px) 100vw, 50vw"
             />
-            <div className="absolute inset-0 bg-black/10" />
+            <div className="absolute inset-0 bg-black/20" />
             <div className="absolute bottom-6 md:bottom-10 left-4 md:left-10 text-white z-10">
               <h2 className="text-3xl md:text-5xl font-light mb-2 md:mb-4">
                 New Collection
               </h2>
-              <p className="text-base md:text-lg opacity-90">
+              <p className="text-base md:text-lg opacity-95">
                 Discover our latest fashion arrivals
               </p>
             </div>
@@ -293,7 +299,7 @@ const FashionShowcase = React.memo(() => {
                     onMouseLeave={() => setIsHovered(null)}
                   >
                     {card.discount && (
-                      <span className="absolute top-4 right-4 bg-red-500 text-white text-sm px-3 py-1 rounded-full z-10">
+                      <span className="absolute top-4 right-4 bg-red-100 text-red-700 text-sm px-3 py-1 rounded-full z-10">
                         {card.discount}
                       </span>
                     )}
@@ -314,7 +320,7 @@ const FashionShowcase = React.memo(() => {
 
                       {/* Color dots overlay */}
                       {isHovered === card.id && (
-                        <div className="absolute inset-0 bg-black/20 transition-opacity duration-300">
+                        <div className="absolute inset-0 bg-black/30 transition-opacity duration-300">
                           <ColorDots
                             colors={card.colors || []}
                             showMore={true}
@@ -322,15 +328,15 @@ const FashionShowcase = React.memo(() => {
                         </div>
                       )}
                     </div>
-                    <h3 className="text-base font-normal mb-2 transition-colors duration-300 hover:text-gray-600">
+                    <h3 className="text-base font-normal text-gray-900 mb-2 transition-colors duration-300 hover:text-gray-700">
                       {card.title}
                     </h3>
                     <div className="flex items-center gap-2">
-                      <span className="text-lg font-medium">
+                      <span className="text-lg font-medium text-gray-900">
                         ₹{card.price.toFixed(2)}
                       </span>
                       {card.originalPrice && (
-                        <span className="text-gray-400 line-through text-sm">
+                        <span className="text-gray-700 line-through text-sm">
                           ₹{card.originalPrice.toFixed(2)}
                         </span>
                       )}

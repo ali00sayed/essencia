@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { IoSearchOutline } from 'react-icons/io5';
@@ -34,10 +33,10 @@ const blogPosts: BlogPost[] = [
     category: 'Fashion Trends',
     date: 'March 15, 2024',
     readTime: '5 min read',
-    image: '/images/blog/bannerImage.webp',
+    image: '/images/blog/avatar/Avatar-1.jpg',
     author: {
-      name: 'Sarah Johnson',
-      avatar: '/images/avatars/sarah.webp',
+      name: 'Jordan Araujo  ',
+      avatar: '/images/blog/avatar/Avatar-1.jpg',
     },
   },
   {
@@ -48,10 +47,10 @@ const blogPosts: BlogPost[] = [
     category: 'Sustainability',
     date: 'March 12, 2024',
     readTime: '7 min read',
-    image: '/images/blog/bannerImage.webp',
+    image: '/images/blog/avatar/Avatar-2.jpg',
     author: {
-      name: 'Michael Chen',
-      avatar: '/images/avatars/michael.webp',
+      name: 'Sancia Araujo',
+      avatar: '/images/blog/avatar/Avatar-2.jpg',
     },
   },
   {
@@ -62,10 +61,10 @@ const blogPosts: BlogPost[] = [
     category: 'Style Guide',
     date: 'March 10, 2024',
     readTime: '6 min read',
-    image: '/images/blog/bannerImage.webp',
+    image: '/images/blog/avatar/Avatar-1.jpg',
     author: {
-      name: 'Emma Davis',
-      avatar: '/images/avatars/emma.webp',
+      name: 'Ali Sayed',
+      avatar: '/images/blog/avatar/Avatar-1.jpg',
     },
   },
   {
@@ -76,10 +75,10 @@ const blogPosts: BlogPost[] = [
     category: 'Style Guide',
     date: 'March 8, 2024',
     readTime: '4 min read',
-    image: '/images/blog/bannerImage.webp',
+    image: '/images/blog/avatar/Avatar-2.jpg',
     author: {
-      name: 'James Wilson',
-      avatar: '/images/avatars/james.webp',
+      name: 'Sarah Wilson',
+      avatar: '/images/blog/avatar/Avatar-2.jpg',
     },
   },
   {
@@ -89,20 +88,20 @@ const blogPosts: BlogPost[] = [
     category: 'Style Guide',
     date: 'March 5, 2024',
     readTime: '8 min read',
-    image: '/images/blog/bannerImage.webp',
+    image: '/images/blog/avatar/Avatar-1.jpg',
     author: {
       name: 'Sarah Johnson',
-      avatar: '/images/avatars/sarah.webp',
+      avatar: '/images/blog/avatar/Avatar-1.jpg',
     },
   },
 ];
 
 const categories = [
   { name: 'All', count: 12 },
-  { name: 'Trends', count: 5 },
+  { name: 'Trends', count: 0 },
   { name: 'Style Guide', count: 3 },
-  { name: 'Sustainability', count: 2 },
-  { name: 'Collections', count: 2 },
+  { name: 'Sustainability', count: 1 },
+  { name: 'Collections', count: 0 },
 ];
 
 const BlogPage = () => {
@@ -149,71 +148,65 @@ const BlogPage = () => {
         '-=0.8'
       );
 
-      // Enhanced posts animation
+      // Enhanced posts animation with better performance
       const posts = postsRef.current?.children;
       if (posts) {
         gsap.from(posts, {
           y: 60,
           opacity: 0,
           duration: 0.8,
-          stagger: 0.15,
+          stagger: 0.1,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: postsRef.current,
-            start: 'top 80%',
-            end: 'bottom 20%',
+            start: 'top 85%',
             toggleActions: 'play none none reverse',
           },
         });
       }
 
-      // Add search animation
+      // Optimized search animation
       if (searchRef.current) {
         gsap.from(searchRef.current, {
           y: 20,
           opacity: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-          delay: 0.5,
+          duration: 0.6,
+          ease: 'power2.out',
+          delay: 0.3,
         });
       }
 
       setIsLoading(false);
     };
 
-    // Small delay to ensure smooth transition
     const timer = setTimeout(initializeAnimations, 100);
-
     return () => clearTimeout(timer);
   }, []);
 
   if (!isMounted) return <Loading />;
 
-  // Add search handler
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
-    // Animate search results
     if (postsRef.current) {
       gsap.from(postsRef.current.children, {
-        y: 20,
+        y: 15,
         opacity: 0,
-        duration: 0.4,
-        stagger: 0.1,
-        ease: 'power3.out',
+        duration: 0.3,
+        stagger: 0.05,
+        ease: 'power2.out',
       });
     }
   };
 
-  // Clear search
   const clearSearch = () => {
     setSearchQuery('');
     if (postsRef.current) {
       gsap.from(postsRef.current.children, {
-        y: 20,
+        y: 15,
         opacity: 0,
-        duration: 0.4,
-        stagger: 0.1,
-        ease: 'power3.out',
+        duration: 0.3,
+        stagger: 0.05,
+        ease: 'power2.out',
       });
     }
   };
@@ -221,35 +214,38 @@ const BlogPage = () => {
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       {isLoading && <Loading />}
-      {/* Hero Section */}
+
+      {/* Enhanced Hero Section */}
       <div
         ref={headerRef}
-        className="relative h-[80vh] flex items-center justify-center"
+        className="relative h-[70vh] sm:h-[70vh] lg:h-[80vh] flex items-center justify-center"
       >
         <Image
-          src="/images/blog/bannerImage.webp"
+          className="object-cover object-center"
+          src="/images/aboutUs/Group-1.jpeg"
           alt="Blog hero"
           fill
-          className="object-cover scale-105"
+          sizes="100vw"
           priority
+          quality={90}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
         <div
           ref={heroContentRef}
-          className="relative z-10 text-center text-white px-4 max-w-4xl"
+          className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto"
         >
-          <h1 className="text-6xl md:text-7xl xl:text-8xl font-light mb-8 leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light mb-2 sm:mb-4 lg:mb-6 leading-tight">
             Essancia Fashion Blog
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto mb-12">
+          <p className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-2xl mx-auto mb-8 sm:mb-10 lg:mb-12">
             Discover the latest trends, styling tips, and fashion insights
           </p>
 
-          {/* Search Bar */}
+          {/* Enhanced Search Bar */}
           <div ref={searchRef} className="relative max-w-xl mx-auto">
             <div
               className={`relative transition-all duration-300 ${
-                isSearchFocused ? 'scale-105' : 'scale-100'
+                isSearchFocused ? 'scale-[1.02]' : 'scale-100'
               }`}
             >
               <input
@@ -259,32 +255,31 @@ const BlogPage = () => {
                 onChange={handleSearch}
                 onFocus={() => setIsSearchFocused(true)}
                 onBlur={() => setIsSearchFocused(false)}
-                className="w-full px-8 py-4 pl-14 rounded-full bg-white/10 
-                  backdrop-blur-md border border-white/20 text-white text-lg
-                  placeholder-white/60 focus:outline-none focus:ring-2 
-                  focus:ring-white/50 transition-all duration-300
+                className="w-full px-6 sm:px-8 py-3 sm:py-4 pl-12 sm:pl-14 rounded-full 
+                  bg-white/10 backdrop-blur-md border border-white/20 text-white 
+                  text-base sm:text-lg placeholder-white/60 focus:outline-none 
+                  focus:ring-2 focus:ring-white/50 transition-all duration-300
                   shadow-[0_0_20px_rgba(255,255,255,0.1)]"
               />
               <IoSearchOutline
-                className="absolute left-5 top-1/2 -translate-y-1/2 
-                text-white/60 text-2xl"
+                className="absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 
+                text-white/60 text-xl sm:text-2xl"
               />
 
               {searchQuery && (
                 <button
                   onClick={clearSearch}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 
+                  className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 
                     text-white/60 hover:text-white transition-colors
                     p-1 rounded-full hover:bg-white/10"
                 >
-                  <IoCloseOutline className="text-xl" />
+                  <IoCloseOutline className="text-lg sm:text-xl" />
                 </button>
               )}
             </div>
 
-            {/* Search Results Count */}
             {searchQuery && (
-              <div className="absolute -bottom-8 left-0 right-0 text-center text-white/80 text-sm">
+              <div className="absolute -bottom-6 sm:-bottom-8 left-0 right-0 text-center text-white/80 text-sm">
                 Found {filteredPosts.length}{' '}
                 {filteredPosts.length === 1 ? 'result' : 'results'}
               </div>
@@ -293,92 +288,98 @@ const BlogPage = () => {
         </div>
       </div>
 
-      {/* Categories Section */}
-      <div className="py-20 px-4 max-w-7xl mx-auto">
-        <div className="flex flex-wrap justify-center gap-4">
+      {/* Enhanced Categories Section */}
+      <div className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
           {categories.map(category => (
             <button
               key={category.name}
               onClick={() => setSelectedCategory(category.name)}
-              className={`group relative px-8 py-3 rounded-full transition-all duration-300
+              className={`group relative px-6 sm:px-8 py-2.5 sm:py-3 rounded-full 
+                transition-all duration-300 text-sm sm:text-base
                 ${
                   selectedCategory === category.name
                     ? 'bg-black text-white shadow-xl scale-105'
                     : 'bg-white text-black hover:bg-gray-50 shadow-md hover:shadow-xl'
                 }`}
             >
-              <span className="relative z-10 flex items-center gap-3">
+              <span className="relative z-10 flex items-center gap-2 sm:gap-3">
                 {category.name}
-                <span className="text-sm opacity-60">({category.count})</span>
+                <span className="text-xs sm:text-sm opacity-60">
+                  ({category.count})
+                </span>
               </span>
             </button>
           ))}
         </div>
       </div>
 
-      {/* Blog Posts Grid */}
-      <div ref={postsRef} className="py-20 px-4 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* Enhanced Blog Posts Grid */}
+      <div
+        ref={postsRef}
+        className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredPosts.map(post => (
-            <Link
-              href={`/blog/${post.id}`}
+            <div
               key={post.id}
               className="group relative bg-white rounded-2xl overflow-hidden
-                shadow-[0_0_20px_rgba(0,0,0,0.05)] hover:shadow-[0_0_30px_rgba(0,0,0,0.15)] 
-                transition-all duration-500 hover:-translate-y-2"
+                border border-black/5 hover:border-black/10
+                shadow-sm hover:shadow-lg transition-all duration-500 hover:-translate-y-2 cursor-pointer"
             >
               <div className="relative aspect-[16/9]">
                 <Image
                   src={post.image}
                   alt={post.title}
                   fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover transition-transform duration-700
                     group-hover:scale-110"
+                  quality={85}
                 />
-                <div
-                  className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent 
-                  opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <span
-                  className="absolute top-4 left-4 bg-white shadow-lg
-                  px-4 py-2 rounded-full text-sm font-medium text-black"
+                  className="absolute top-3 sm:top-4 left-3 sm:left-4 bg-white/95 backdrop-blur-sm
+                  px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium 
+                  text-black shadow-md"
                 >
                   {post.category}
                 </span>
                 <span
-                  className="absolute top-4 right-4 bg-black/80 backdrop-blur-sm
-                  px-4 py-2 rounded-full text-xs text-white shadow-lg"
+                  className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-black/90 backdrop-blur-sm
+                  px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs text-white shadow-md"
                 >
                   {post.readTime}
                 </span>
               </div>
 
-              <div className="p-8 space-y-4">
+              <div className="p-6 sm:p-8 space-y-3 sm:space-y-4">
                 <h2
-                  className="text-xl font-semibold text-gray-900 group-hover:text-gray-600 
-                  transition-colors line-clamp-2"
+                  className="text-lg sm:text-xl font-semibold text-black 
+                  group-hover:text-gray-600 transition-colors line-clamp-2"
                 >
                   {post.title}
                 </h2>
-                <p className="text-gray-600 line-clamp-2 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-600 line-clamp-2 leading-relaxed">
                   {post.excerpt}
                 </p>
 
-                <div className="flex items-center justify-between pt-6 border-t border-gray-100">
-                  <div className="flex items-center space-x-4">
+                <div className="flex items-center justify-between pt-4 sm:pt-6 border-t border-gray-100">
+                  <div className="flex items-center space-x-3 sm:space-x-4">
                     <div
-                      className="relative w-12 h-12 rounded-full overflow-hidden 
+                      className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden 
                       border-2 border-white shadow-md"
                     >
                       <Image
                         src={post.author.avatar}
                         alt={post.author.name}
                         fill
+                        sizes="48px"
                         className="object-cover"
                       />
                     </div>
                     <div>
-                      <span className="block text-sm font-medium text-gray-900">
+                      <span className="block text-sm font-medium text-black">
                         {post.author.name}
                       </span>
                       <span className="block text-xs text-gray-500 mt-0.5">
@@ -390,14 +391,14 @@ const BlogPage = () => {
                     className="text-sm font-medium text-gray-600 group-hover:text-black 
                     transition-colors flex items-center gap-1"
                   >
-                    Read More
+                    View Details
                     <span className="transform transition-transform group-hover:translate-x-1">
                       →
                     </span>
                   </span>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>

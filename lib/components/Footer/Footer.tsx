@@ -3,37 +3,38 @@ import React from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import {
-  TwitterIcon,
   FacebookIcon,
   InstagramIcon,
   LinkedInIcon,
 } from '../SocialIcons/SocialIcons';
+import { FaXTwitter } from 'react-icons/fa6';
 
 const navigation = {
   home: [
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
+    { name: 'Customization', href: '/customize' },
   ],
   collections: [
-    { name: 'New Arrivals', href: '/collections/new-arrivals' },
-    { name: 'Best Sellers', href: '/collections/best-sellers' },
-    { name: 'Sale', href: '/collections/sale' },
+    { name: 'New Arrivals', href: '/collections' },
+    { name: 'Best Sellers', href: '/collections' },
+    { name: 'Sale', href: '/collections' },
   ],
   products: [
-    { name: 'Clothing', href: '/products/clothing' },
-    { name: 'Accessories', href: '/products/accessories' },
-    { name: 'Shoes', href: '/products/shoes' },
+    { name: 'Clothing', href: '/collections' },
+    { name: 'Accessories', href: '/collections' },
+    { name: 'Shoes', href: '/collections' },
   ],
   quickLinks: [
-    { name: 'FAQs', href: '/faqs' },
+    { name: 'FAQs', href: '/faq' },
     { name: 'Size Guide', href: '/size-guide' },
-    { name: 'Shipping Info', href: '/shipping' },
+    { name: 'Shipping Info', href: '/shipping-policy' },
   ],
   legal: [
     { name: 'Privacy Policy', href: '/privacy' },
-    { name: 'Terms of Service', href: '/terms' },
-    { name: 'Returns Policy', href: '/returns' },
+    { name: 'Terms of Service', href: '/terms-conditions' },
+    { name: 'Returns Policy', href: '/shipping-policy' },
   ],
 };
 
@@ -118,7 +119,7 @@ const Footer = () => {
                   className="text-xl font-light tracking-wider hover:text-gray-600 
                   transition-colors duration-300"
                 >
-                  ESSENCIA
+                  ESSaNCIA
                 </span>
               </Link>
               <p className="text-sm text-gray-500">
@@ -137,11 +138,11 @@ const Footer = () => {
                 <option value="EN" className="bg-white">
                   English
                 </option>
+                <option value="MR" className="bg-white">
+                  Marathi
+                </option>
                 <option value="HN" className="bg-white">
                   Hindi
-                </option>
-                <option value="PU" className="bg-white">
-                  Punjabi
                 </option>
               </select>
 
@@ -149,24 +150,26 @@ const Footer = () => {
               <div className="flex items-center gap-8">
                 {[
                   {
-                    name: 'TWITTER',
-                    icon: <TwitterIcon />,
-                    href: 'https://twitter.com',
+                    name: 'INSTAGRAM',
+                    icon: <InstagramIcon />,
+                    href: 'https://instagram.com',
                   },
+
                   {
                     name: 'FACEBOOK',
                     icon: <FacebookIcon />,
                     href: 'https://facebook.com',
                   },
-                  {
-                    name: 'INSTAGRAM',
-                    icon: <InstagramIcon />,
-                    href: 'https://instagram.com',
-                  },
+
                   {
                     name: 'LINKEDIN',
                     icon: <LinkedInIcon />,
                     href: 'https://linkedin.com',
+                  },
+                  {
+                    name: 'Twitter (X)',
+                    icon: <FaXTwitter />,
+                    href: 'https://twitter.com',
                   },
                 ].map(social => (
                   <Link
