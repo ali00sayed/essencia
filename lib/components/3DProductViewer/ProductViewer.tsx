@@ -156,8 +156,8 @@ const ProductViewer: React.FC<ProductViewerProps> = ({
             console.log('Attempting to apply logo to mesh:', child.name);
 
             try {
-              // Create a new texture from the base64 logo
-              const texture = new THREE.TextureLoader().load(
+              // Load and apply texture directly
+              new THREE.TextureLoader().load(
                 logo,
                 loadedTexture => {
                   console.log('Logo texture loaded successfully');
